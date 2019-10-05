@@ -4,7 +4,9 @@ class SpotController {
   async index(req, res) {
     const { tech } = req.query
 
-    const spots = await Spot.find({ techs: { $regex: tech, $options: 'i' } })
+    const spots = await Spot.find({
+      techs: { $regex: tech, $options: 'i' }
+    }).sort({ price: 'asc' })
 
     return res.json(spots)
   }
