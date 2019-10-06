@@ -12,8 +12,15 @@ const SpotSchema = new Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+      virtuals: true
+    }
   }
 )
+
+SpotSchema.virtual('thumbnail_url').get(function() {
+  return `http://192.168.15.14:3333/files/${this.thumbnail}`
+})
 
 module.exports = model('Spot', SpotSchema)

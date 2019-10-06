@@ -1,8 +1,12 @@
 require('dotenv').config()
 
 const express = require('express')
-const cors = require('cors')
 const mongoose = require('mongoose')
+const cors = require('cors')
+const path = require('path')
+
+const routes = require('./app/routes')
+
 const databaseConfig = require('./config/database')
 
 class App {
@@ -28,7 +32,11 @@ class App {
   }
 
   routes() {
-    this.express.use(require('./app/routes'))
+    this.express.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'uploads'))
+    )
+    this.express.use(routes)
   }
 }
 
